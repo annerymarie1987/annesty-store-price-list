@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Annesty Store Price List</title>
+<title>Annesty Store - Price List and Buy Now Pay Later Logs</title>
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <style>
 body { background: #f8f9fa; }
 .card { border-radius: 12px; }
@@ -24,7 +23,7 @@ h1.frame-title {
 <body>
 
 <div class="container py-4">
-    <h1 class="frame-title">Annesty Store Price List</h1>
+    <h1 class="frame-title">Annesty Store</h1>
 
     <!-- Tabs -->
     <ul class="nav nav-tabs mb-3" id="mainTabs" role="tablist">
@@ -80,22 +79,23 @@ h1.frame-title {
         <!-- BNPL Tab -->
         <div class="tab-pane fade" id="bnpl" role="tabpanel">
             <div class="card p-3 mb-3">
-                <h5>Log an Item</h5>
-                <form id="bnplForm" class="row g-3">
-                    <div class="col-md-4">
-                        <input type="text" id="userName" class="form-control" placeholder="Your Name" required>
+                <h5>Log Items</h5>
+                <form id="bnplForm">
+                    <div class="row g-3 align-items-end mb-2 bnpl-row">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control userName" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select itemSelect" required>
+                                <option value="">Select Item</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" class="form-control purchaseDate" required>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <select id="itemSelect" class="form-select" required>
-                            <option value="">Select Item</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="date" id="purchaseDate" class="form-control" required>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-success w-100">Add</button>
-                    </div>
+                    <button type="button" id="addItemBtn" class="btn btn-secondary mb-2">Add Another Item</button>
+                    <button type="submit" class="btn btn-success">Submit All</button>
                 </form>
             </div>
 
@@ -167,7 +167,7 @@ const items = [
   ["Milo","DRINK",15],
 ];
 
-// Price List
+// Price List Table
 const tbody = document.querySelector("#itemsTable tbody");
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
@@ -217,10 +217,11 @@ resetBtn.addEventListener("click", ()=>{
 });
 
 // BNPL Log
-const itemSelect = document.getElementById("itemSelect");
+const itemSelect = document.querySelector(".itemSelect");
 const bnplForm = document.getElementById("bnplForm");
 const bnplTable = document.querySelector("#bnplTable tbody");
 
+// Populate dropdown options
 items.forEach(([desc, cat, price])=>{
     const option = document.createElement("option");
     option.value = price;
@@ -230,18 +231,58 @@ items.forEach(([desc, cat, price])=>{
     itemSelect.appendChild(option);
 });
 
+const itemSelectTemplate = itemSelect.innerHTML; // for new rows
+
+// Add new item row
+document.getElementById("addItemBtn").addEventListener("click", ()=>{
+    const container = document.createElement("div");
+    container.classList.add("row", "g-3", "align-items-end", "mb-2", "bnpl-row");
+    container.innerHTML = `
+        <div class="col-md-4">
+            <input type="text" class="form-control userName" placeholder="Your Name" required>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select itemSelect" required>
+                ${itemSelectTemplate}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="date" class="form-control purchaseDate" required>
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-danger removeItemBtn">X</button>
+        </div>
+    `;
+    bnplForm.insertBefore(container, document.getElementById("addItemBtn"));
+
+    container.querySelector(".removeItemBtn").addEventListener("click", ()=>{
+        container.remove();
+    });
+});
+
+// Submit all BNPL items
 bnplForm.addEventListener("submit", e=>{
     e.preventDefault();
-    const name = document.getElementById("userName").value;
-    const selectedOption = itemSelect.selectedOptions[0];
-    const itemName = selectedOption.dataset.name;
-    const itemPrice = selectedOption.dataset.price;
-    const date = document.getElementById("purchaseDate").value;
+    const rows = bnplForm.querySelectorAll(".bnpl-row");
+    rows.forEach(row=>{
+        const name = row.querySelector(".userName").value;
+        const selectedOption = row.querySelector(".itemSelect").selectedOptions[0];
+        const itemName = selectedOption.dataset.name;
+        const itemPrice = selectedOption.dataset.price;
+        const date = row.querySelector(".purchaseDate").value;
 
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${name}</td><td>${itemName}</td><td>${itemPrice}</td><td>${date}</td>`;
-    bnplTable.appendChild(tr);
-    bnplForm.reset();
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${name}</td><td>${itemName}</td><td>${itemPrice}</td><td>${date}</td>`;
+        bnplTable.appendChild(tr);
+    });
+
+    // Reset form: remove extra rows
+    rows.forEach((row,index)=>{
+        if(index>0) row.remove();
+    });
+    rows[0].querySelector(".userName").value="";
+    rows[0].querySelector(".itemSelect").selectedIndex=0;
+    rows[0].querySelector(".purchaseDate").value="";
 });
 
 // Download CSV
@@ -263,7 +304,5 @@ document.getElementById("downloadCsv").addEventListener("click", ()=>{
     document.body.removeChild(link);
 });
 </script>
-
 </body>
 </html>
-
