@@ -1,320 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANNESTY STORE</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Annesty Store Price List</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-        body { background: #f4f6f9; }
-        h1 { font-weight: 700; }
-        .statusCell { font-weight: bold; }
-    </style>
+<!-- BOOTSTRAP CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body { background:#f8f9fa; }
+    .table thead { background:#0d6efd; color:white; }
+</style>
 </head>
+
 <body class="p-3">
 
-    <h1 class="text-center p-3 mb-4 border border-primary rounded bg-white">
-        ANNESTY STORE
-    </h1>
+<h2 class="text-center mb-4">Annesty Store Price List</h2>
 
-    <!-- NAV TABS -->
-    <ul class="nav nav-tabs mb-3" id="myTab">
-        <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#priceList">Price List</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#bnpl">Buy Now Pay Later Log</button>
-        </li>
-    </ul>
+<!-- TABS -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="price-tab" data-bs-toggle="tab" data-bs-target="#price" type="button" role="tab">Price List</button>
+  </li>
 
-    <div class="tab-content">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="bnpl-tab" data-bs-toggle="tab" data-bs-target="#bnpl" type="button" role="tab">Buy Now Pay Later Log</button>
+  </li>
+</ul>
 
-        <!-- PRICE LIST TAB -->
-        <div class="tab-pane fade show active" id="priceList">
+<div class="tab-content mt-3" id="myTabContent">
 
-            <!-- Search and Filter -->
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <input id="searchInput" class="form-control" placeholder="Search item...">
-                </div>
-                <div class="col-md-4">
-                    <select id="categoryFilter" class="form-select">
-                        <option value="">All Categories</option>
-                        <option value="DRINK">DRINK</option>
-                        <option value="NOODLES">NOODLES</option>
-                        <option value="SNACKS">SNACKS</option>
-                    </select>
-                </div>
-            </div>
+<!-- ============ PRICE LIST TAB ============ -->
+<div class="tab-pane fade show active" id="price" role="tabpanel">
 
-            <table class="table table-bordered table-hover bg-white" id="priceTable">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Office Price</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+    <!-- SEARCH -->
+    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search product...">
+
+    <table class="table table-bordered" id="priceTable">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Office Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Nescafe Original Twin</td><td>DRINK</td><td>20</td></tr>
+            <tr><td>Nescafe Creamy Latte Twin</td><td>DRINK</td><td>20</td></tr>
+            <tr><td>Kopiko Brown Twin</td><td>DRINK</td><td>20</td></tr>
+            <tr><td>Kopiko Blanca Twin</td><td>DRINK</td><td>20</td></tr>
+            <tr><td>Hiho Crunchy</td><td>SNACKS</td><td>3</td></tr>
+            <tr><td>Nissin Noodles Cheese</td><td>NOODLES</td><td>30</td></tr>
+            <tr><td>Nissin Noodles Creamy</td><td>NOODLES</td><td>30</td></tr>
+            <tr><td>Nissin Noodles Spicy</td><td>NOODLES</td><td>30</td></tr>
+            <tr><td>Nissin Noodles Seafood</td><td>NOODLES</td><td>30</td></tr>
+            <tr><td>Mr Chips</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Tortillos Barbeque</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>CrisCross</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Alibaba Chips</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Super Crunch</td><td>SNACKS</td><td>3</td></tr>
+            <tr><td>Tortillos Cheese</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Pier20 Prawn</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Nova</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Peewee</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Xsakto</td><td>SNACKS</td><td>3</td></tr>
+            <tr><td>BoyBawang Small</td><td>SNACKS</td><td>3</td></tr>
+            <tr><td>Tostas</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Chippy</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Clover</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Tomi</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Tostillas</td><td>SNACKS</td><td>30</td></tr>
+            <tr><td>Vcut</td><td>SNACKS</td><td>30</td></tr>
+            <tr><td>Piatos</td><td>SNACKS</td><td>30</td></tr>
+            <tr><td>Happy Peanuts Small</td><td>SNACKS</td><td>5</td></tr>
+            <tr><td>Pinatsu Seaweed</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Pinatsu Garlic</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>Great Taste White</td><td>SNACKS</td><td>20</td></tr>
+            <tr><td>San Mig Coffee</td><td>DRINK</td><td>15</td></tr>
+            <tr><td>Nissin Noodles Beef</td><td>NOODLES</td><td>20</td></tr>
+            <tr><td>Nissin Noodles Chicken</td><td>NOODLES</td><td>20</td></tr>
+            <tr><td>Matcha</td><td>DRINK</td><td>20</td></tr>
+            <tr><td>Milo</td><td>DRINK</td><td>15</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ============ BNPL TAB ============ -->
+<div class="tab-pane fade" id="bnpl" role="tabpanel">
+
+    <h4>Add Buy Now Pay Later Log</h4>
+
+    <div class="card p-3 mb-3">
+        <label>Name:</label>
+        <input type="text" id="bnplName" class="form-control mb-2">
+
+        <label>Date:</label>
+        <input type="date" id="bnplDate" class="form-control mb-3">
+
+        <div id="itemContainer">
+            <!-- dynamic items appear here -->
         </div>
 
-        <!-- BNPL TAB -->
-        <div class="tab-pane fade" id="bnpl">
-
-            <!-- Multi Item Form -->
-            <div class="card p-3 mb-3">
-                <h5>Log Items</h5>
-
-                <form id="bnplForm">
-                    <div class="row g-3 align-items-end mb-2 bnpl-row">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control userName" placeholder="Name" required>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-select itemSelect" required></select>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="date" class="form-control purchaseDate" required>
-                        </div>
-                    </div>
-
-                    <button type="button" id="addItemBtn" class="btn btn-secondary mb-2">Add Another Item</button>
-                    <button type="submit" class="btn btn-success">Submit All</button>
-                </form>
-            </div>
-
-            <!-- Search BNPL -->
-            <div class="row g-2 mb-2">
-                <div class="col-md-6">
-                    <input id="bnplSearchInput" class="form-control" placeholder="Search BNPL logs...">
-                </div>
-                <div class="col-md-2">
-                    <button id="bnplSearchBtn" class="btn btn-primary w-100">Search</button>
-                </div>
-                <div class="col-md-2">
-                    <button id="bnplResetBtn" class="btn btn-outline-secondary w-100">Reset</button>
-                </div>
-            </div>
-
-            <!-- CSV -->
-            <button id="downloadCsv" class="btn btn-outline-primary mb-2">Download CSV</button>
-
-            <table class="table table-sm bg-white" id="bnplTable">
-                <thead class="table-success">
-                    <tr>
-                        <th>Name</th>
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
+        <button class="btn btn-secondary mb-2" id="addItemBtn">+ Add Item</button>
+        <button class="btn btn-primary" id="addLogBtn">Add Log</button>
     </div>
 
+    <!-- SEARCH BNPL -->
+    <input type="text" id="bnplSearchInput" class="form-control mb-2" placeholder="Search BNPL entries">
 
-    <!-- SCRIPT -->
-    <script>
-        // PRICE LIST DATA
-        const items = [
-            {desc:"Nescafe Original Twin",cat:"DRINK",price:20},
-            {desc:"Nescafe Creamy Latte Twin",cat:"DRINK",price:20},
-            {desc:"Kopiko Brown Twin",cat:"DRINK",price:20},
-            {desc:"Kopiko Blanca Twin",cat:"DRINK",price:20},
-            {desc:"Hiho Cruncy",cat:"SNACKS",price:3},
-            {desc:"Nissin Noodles Cheese",cat:"NOODLES",price:30},
-            {desc:"Nissin Noodles Creamy",cat:"NOODLES",price:30},
-            {desc:"Nissin Noodles Spicy",cat:"NOODLES",price:30},
-            {desc:"Nissin Noodles Seafood",cat:"NOODLES",price:30},
-            {desc:"Mr Chips",cat:"SNACKS",price:20},
-            {desc:"Tortillos Barbeque",cat:"SNACKS",price:20},
-            {desc:"CrisCross",cat:"SNACKS",price:20},
-            {desc:"Alibaba chips",cat:"SNACKS",price:20},
-            {desc:"Super Crunch",cat:"SNACKS",price:3},
-            {desc:"Tortillos Cheese",cat:"SNACKS",price:20},
-            {desc:"Pier20 Prawn",cat:"SNACKS",price:20},
-            {desc:"Nova",cat:"SNACKS",price:20},
-            {desc:"Peewee",cat:"SNACKS",price:20},
-            {desc:"Xsakto",cat:"SNACKS",price:3},
-            {desc:"BoyBawang Small",cat:"SNACKS",price:3},
-            {desc:"Tostas",cat:"SNACKS",price:20},
-            {desc:"Chippy",cat:"SNACKS",price:20},
-            {desc:"Clover",cat:"SNACKS",price:20},
-            {desc:"Tomi",cat:"SNACKS",price:20},
-            {desc:"Tostillas",cat:"SNACKS",price:30},
-            {desc:"Vcut",cat:"SNACKS",price:30},
-            {desc:"Piatos",cat:"SNACKS",price:30},
-            {desc:"Happy Peanuts Small",cat:"SNACKS",price:5},
-            {desc:"Pinatsu Seaweed",cat:"SNACKS",price:20},
-            {desc:"Pinatsu Garlic",cat:"SNACKS",price:20},
-            {desc:"Great Taste White",cat:"DRINK",price:20},
-            {desc:"San Mig Coffee",cat:"SNACKS",price:15},
-            {desc:"Nissin Noodles Beef",cat:"NOODLES",price:30},
-            {desc:"Nissin Noodles Chicken",cat:"NOODLES",price:30},
-            {desc:"Matcha",cat:"DRINK",price:20},
-            {desc:"Milo",cat:"DRINK",price:15},
-        ];
+    <button class="btn btn-success mb-3" id="downloadCsvBtn">Download CSV</button>
 
-        const priceTable = document.querySelector("#priceTable tbody");
+    <table class="table table-bordered" id="bnplTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Item</th>
+                <th>Cost</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Mark as Paid</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
-        function loadTable() {
-            priceTable.innerHTML = "";
-            items.forEach(i=>{
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td>${i.desc}</td><td>${i.cat}</td><td>${i.price}</td>`;
-                priceTable.appendChild(tr);
-            });
+</div>
+
+</div> <!-- END tab-content -->
+
+<!-- BOOTSTRAP JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// SEARCH PRICE LIST
+document.getElementById("searchInput").addEventListener("keyup", function () {
+    const value = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#priceTable tbody tr");
+    rows.forEach(tr => {
+        tr.style.display = tr.textContent.toLowerCase().includes(value) ? "" : "none";
+    });
+});
+
+// BNPL ITEM DROPDOWN
+const products = {
+    "Nescafe Original Twin":20, "Nescafe Creamy Latte Twin":20,
+    "Kopiko Brown Twin":20, "Kopiko Blanca Twin":20,
+    "Hiho Crunchy":3, "Nissin Noodles Cheese":30,
+    "Nissin Noodles Creamy":30, "Nissin Noodles Spicy":30,
+    "Nissin Noodles Seafood":30, "Mr Chips":20,
+    "Tortillos Barbeque":20, "CrisCross":20,
+    "Alibaba Chips":20, "Super Crunch":3,
+    "Tortillos Cheese":20, "Pier20 Prawn":20,
+    "Nova":20, "Peewee":20, "Xsakto":3,
+    "BoyBawang Small":3, "Tostas":20,
+    "Chippy":20, "Clover":20,
+    "Tomi":20, "Tostillas":30, "Vcut":30,
+    "Piatos":30, "Happy Peanuts Small":5,
+    "Pinatsu Seaweed":20, "Pinatsu Garlic":20,
+    "Great Taste White":20, "San Mig Coffee":15,
+    "Nissin Noodles Beef":30, "Nissin Noodles Chicken":30,
+    "Matcha":20, "Milo":15
+};
+
+function createItemRow() {
+    const div = document.createElement("div");
+    div.classList.add("row", "mb-2");
+    div.innerHTML = `
+        <div class="col-8">
+            <select class="form-select bnpl-item">
+                ${Object.keys(products).map(p => `<option value="${p}">${p}</option>`).join("")}
+            </select>
+        </div>
+        <div class="col-4">
+            <input type="number" class="form-control bnpl-cost" value="0" readonly>
+        </div>
+    `;
+    return div;
+}
+
+document.getElementById("addItemBtn").onclick = () => {
+    const row = createItemRow();
+    row.querySelector(".bnpl-item").addEventListener("change", e => {
+        row.querySelector(".bnpl-cost").value = products[e.target.value];
+    });
+    document.getElementById("itemContainer").appendChild(row);
+};
+
+document.getElementById("addItemBtn").click();
+
+// ADD LOG
+document.getElementById("addLogBtn").onclick = () => {
+    const name = document.getElementById("bnplName").value;
+    const date = document.getElementById("bnplDate").value;
+
+    document.querySelectorAll("#itemContainer .row").forEach(row => {
+        const item = row.querySelector(".bnpl-item").value;
+        const cost = row.querySelector(".bnpl-cost").value;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${name}</td>
+            <td>${item}</td>
+            <td>${cost}</td>
+            <td>${date}</td>
+            <td class="status">UNPAID</td>
+            <td><button class="btn btn-warning btn-sm markPaid">Paid</button></td>
+        `;
+        document.querySelector("#bnplTable tbody").appendChild(tr);
+    });
+};
+
+// MARK AS PAID (WITH PASSWORD)
+document.addEventListener("click", function(e){
+    if(e.target.classList.contains("markPaid")){
+        const pw = prompt("Enter admin password:");
+        if(pw === "bubi123"){
+            e.target.closest("tr").querySelector(".status").textContent = "PAID";
+            e.target.remove();
+        } else {
+            alert("Incorrect Password");
         }
-        loadTable();
+    }
+});
 
-        // PRICE LIST SEARCH / FILTER
-        searchInput.addEventListener("keyup", ()=> filterItems());
-        categoryFilter.addEventListener("change", ()=> filterItems());
+// SEARCH BNPL
+document.getElementById("bnplSearchInput").addEventListener("keyup", function(){
+    const value = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#bnplTable tbody tr");
+    rows.forEach(tr => {
+        tr.style.display = tr.textContent.toLowerCase().includes(value) ? "" : "none";
+    });
+});
 
-        function filterItems(){
-            const s = searchInput.value.toLowerCase();
-            const c = categoryFilter.value;
+// CSV DOWNLOAD
+document.getElementById("downloadCsvBtn").onclick = () => {
+    let csv = "Name,Item,Cost,Date,Status\n";
+    const rows = document.querySelectorAll("#bnplTable tbody tr");
+    rows.forEach(r => {
+        const cols = r.querySelectorAll("td");
+        csv += `${cols[0].innerText},${cols[1].innerText},${cols[2].innerText},${cols[3].innerText},${cols[4].innerText}\n`;
+    });
 
-            const rows = priceTable.querySelectorAll("tr");
-            rows.forEach(r=>{
-                const text = r.textContent.toLowerCase();
-                const cat = r.children[1].textContent;
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "bnpl_logs.csv";
+    a.click();
+};
+</script>
 
-                const match = text.includes(s) && (c==="" || cat===c);
-                r.style.display = match ? "" : "none";
-            });
-        }
-
-        // BNPL ITEMS DROPDOWN
-        const selects = document.querySelectorAll(".itemSelect");
-        function fillDropdowns() {
-            selects.forEach(sel=>{
-                sel.innerHTML = `<option value="">Select Item</option>`;
-                items.forEach(i=>{
-                    sel.innerHTML += `<option data-name="${i.desc}" data-price="${i.price}">${i.desc} - ₱${i.price}</option>`;
-                });
-            });
-        }
-        fillDropdowns();
-
-        // ADD MULTIPLE BNPL ROWS
-        const bnplForm = document.getElementById("bnplForm");
-        const firstSelect = document.querySelector(".itemSelect");
-        const templateOptions = firstSelect.innerHTML;
-
-        addItemBtn.addEventListener("click", ()=>{
-            const row = document.createElement("div");
-            row.className = "row g-3 align-items-end mb-2 bnpl-row";
-
-            row.innerHTML = `
-                <div class="col-md-4">
-                    <input type="text" class="form-control userName" placeholder="Name" required>
-                </div>
-                <div class="col-md-4">
-                    <select class="form-select itemSelect" required>${templateOptions}</select>
-                </div>
-                <div class="col-md-3">
-                    <input type="date" class="form-control purchaseDate" required>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-danger removeItemBtn">X</button>
-                </div>
-            `;
-            bnplForm.insertBefore(row, addItemBtn);
-
-            row.querySelector(".removeItemBtn").addEventListener("click", ()=>{
-                row.remove();
-            });
-        });
-
-        // SUBMIT ALL BNPL ITEMS
-        const bnplTableBody = document.querySelector("#bnplTable tbody");
-
-        bnplForm.addEventListener("submit", e=>{
-            e.preventDefault();
-
-            const rows = bnplForm.querySelectorAll(".bnpl-row");
-
-            rows.forEach(r=>{
-                const name = r.querySelector(".userName").value;
-                const opt = r.querySelector(".itemSelect").selectedOptions[0];
-                const itemName = opt.dataset.name;
-                const price = opt.dataset.price;
-                const date = r.querySelector(".purchaseDate").value;
-
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td>${name}</td>
-                    <td>${itemName}</td>
-                    <td>${price}</td>
-                    <td>${date}</td>
-                    <td class="statusCell text-danger">UNPAID</td>
-                    <td><button class="btn btn-sm btn-success markPaidBtn">Mark Paid</button></td>
-                `;
-                bnplTableBody.appendChild(tr);
-
-                tr.querySelector(".markPaidBtn").addEventListener("click", ()=>{
-                    const p = prompt("Admin Password:");
-                    if(p==="BUBI123"){
-                        tr.querySelector(".statusCell").textContent = "PAID";
-                        tr.querySelector(".statusCell").style.color = "green";
-                    } else {
-                        alert("Incorrect password");
-                    }
-                });
-            });
-
-            // Reset form back to first row
-            rows.forEach((r,i)=> i>0 ? r.remove() : null);
-            rows[0].querySelector(".userName").value = "";
-            rows[0].querySelector(".itemSelect").selectedIndex = 0;
-            rows[0].querySelector(".purchaseDate").value = "";
-        });
-
-        // BNPL SEARCH
-        bnplSearchBtn.addEventListener("click", ()=>{
-            const q = bnplSearchInput.value.toLowerCase();
-            const rows = bnplTableBody.querySelectorAll("tr");
-
-            rows.forEach(r=>{
-                const text = r.textContent.toLowerCase();
-                r.style.display = text.includes(q) ? "" : "none";
-            });
-        });
-
-        bnplResetBtn.addEventListener("click", ()=>{
-            bnplSearchInput.value="";
-            bnplTableBody.querySelectorAll("tr").forEach(r=> r.style.display="");
-        });
-
-        // CSV DOWNLOAD
-        downloadCsv.addEventListener("click", ()=>{
-            let csv = "Name,Item,Price,Date,Status\n";
-
-            bnplTableBody.querySelectorAll("tr").forEach(r=>{
-                const cols = r.querySelectorAll("td");
-                let data = [];
-                cols.forEach(c=> data.push(c.innerText));
-                csv += data.join(",") + "\n";
-            });
-
-            const blob = new Blob([csv], {type:"text/csv"});
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "BNPL_Log.csv";
-            a.click();
-        });
-
-    </script>
 </body>
 </html>
-
-
