@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Annesty Store Price List</title>
+
+  <!-- Bootstrap CSS (free CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background: #f8f9fa; }
+    .card { border-radius: 12px; }
+    .table thead th { background: #f1f3f5; }
+    .badge-count { font-size: 0.9rem; }
+    .search-row { gap: .5rem; }
+    @media (max-width: 575px) {
+      .search-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h4 mb-0">Annesty Price List</h1>
+      <div>
+        <span class="badge bg-primary badge-count" id="visibleCount">0 items</span>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <!-- Search controls -->
+        <div class="d-flex align-items-center search-row">
+          <input id="searchInput" type="text" class="form-control" placeholder="Search description (e.g. Nescafe, Noodles...)">
+          <select id="categorySelect" class="form-select" style="max-width:220px;">
+            <option value="">All Categories</option>
+            <option value="DRINK">DRINK</option>
+            <option value="SNACKS">SNACKS</option>
+            <option value="NOODLES">NOODLES</option>
+          </select>
+
+          <input id="priceInput" type="text" class="form-control" placeholder="Office Price (optional)" style="max-width:160px;">
+          
+          <button id="searchBtn" class="btn btn-primary">Search</button>
+          <button id="resetBtn" class="btn btn-outline-secondary">Reset</button>
+        </div>
+        <div class="form-text mt-2">You can type part of the description and click <strong>Search</strong> (or press Enter).</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-sm mb-0" id="itemsTable">
+            <thead>
+              <tr>
+                <th style="min-width: 40%;">Description</th>
+                <th style="width: 15%;">Category</th>
+                <th style="width: 15%;">Office Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rows will be injected by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-end mt-2">
+      <small class="text-muted">Built with Bootstrap • Free to use</small>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Data: description, category, office price
+    const items = [
+      ["Nescafe Original Twin","DRINK",20],
+      ["Nescafe Creamy Latte Twin","DRINK",20],
+      ["Kopiko Brown Twin","DRINK",20],
+      ["Kopiko Blanca Twin","DRINK",20],
+      ["Hiho Cruncy","SNACKS",3],
+      ["Nissin Noodles Cheese","NOODLES",30],
+      ["Nissin Noodles Creamy","NOODLES",30],
+      ["Nissin Noodles Spicy","NOODLES",30],
+      ["Nissin Noodles Seafood","NOODLES",30],
+      ["Mr Chips","SNACKS",20],
+      ["Tortillos Barbeque","SNACKS",20],
+      ["CrisCross","SNACKS",20],
+      ["Alibaba chips","SNACKS",20],
+      ["Super Crunch","SNACKS",3],
+      ["Tortillos Cheese","SNACKS",20],
+      ["Pier20 Prawn","SNACKS",20],
+      ["Nova","SNACKS",20],
+      ["Peewee","SNACKS",20],
+      ["Xsakto","SNACKS",3],
+      ["BoyBawang Small","SNACKS",3],
+      ["Tostas","SNACKS",20],
+      ["Chippy","SNACKS",20],
+      ["Clover","SNACKS",20],
+      ["Tomi","SNACKS",20],
+      ["Tostillas","SNACKS",30],
+      ["Vcut","SNACKS",30],
+      ["Piatos","SNACKS",30],
+      ["Happy Peanuts Small","SNACKS",5],
+      ["Pinatsu Seaweed","SNACKS",5],
+      ["Pinatsu Garlic","SNACKS",5],
+      ["Great Taste White","SNACKS",5],
+      ["San Mig Coffee","SNACKS",15],
+      ["Nissin Noodles Beef","NOODLES",20],
+      ["Nissin Noodles Chicken","NOODLES",20],
+      ["Matcha","DRINK",20],
+      ["Milo","DRINK",15],
+    ];
+
+    const tbody = document.querySelector("#itemsTable tbody");
+    const searchInput = document.getElementById("searchInput");
+    const categorySelect = document.getElementById("categorySelect");
+    const priceInput = document.getElementById("priceInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const visibleCount = document.getElementById("visibleCount");
+
+    // Render all rows
+    function renderRows(list) {
+      tbody.innerHTML = "";
+      if (!list.length) {
+        tbody.innerHTML = '<tr><td colspan="3" class="text-center py-3 text-muted">No items found</td></tr>';
+      } else {
+        for (const row of list) {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${escapeHtml(row[0])}</td>
+            <td>${escapeHtml(row[1])}</td>
+            <td>${escapeHtml(row[2])}</td>
+          `;
+          tbody.appendChild(tr);
+        }
+      }
+      visibleCount.textContent = list.length + (list.length === 1 ? " item" : " items");
+    }
+
+    // Simple sanitize for text injection
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    // Filter function
+    function filterItems() {
+      const q = searchInput.value.trim().toLowerCase();
+      const category = categorySelect.value;
+      const priceVal = priceInput.value.trim();
+
+      // If price input provided, try to parse number (or exact match)
+      const priceFilter = priceVal === "" ? null : Number(priceVal);
+
+      const filtered = items.filter(([desc, cat, price]) => {
+        const matchesQuery = q === "" || desc.toLowerCase().includes(q);
+        const matchesCategory = category === "" || cat === category;
+        const matchesPrice = priceFilter === null || price === priceFilter;
+
+        return matchesQuery && matchesCategory && matchesPrice;
+      });
+
+      renderRows(filtered);
+    }
+
+    // Reset filters
+    function resetFilters() {
+      searchInput.value = "";
+      categorySelect.value = "";
+      priceInput.value = "";
+      renderRows(items);
+    }
+
+    // Bind events
+    searchBtn.addEventListener("click", filterItems);
+    resetBtn.addEventListener("click", resetFilters);
+
+    // Press Enter to search
+    [searchInput, categorySelect, priceInput].forEach(el => {
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          filterItems();
+        }
+      });
+    });
+
+    // Initial render
+    renderRows(items);
+  </script>
+</body>
+</html>
