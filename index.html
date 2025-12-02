@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Annesty Store - QR Price List & BNPL Log</title>
+<title>Annesty Store Price List</title>
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-body {
-    background: #f8f9fa;
-}
+body { background: #f8f9fa; }
 .card { border-radius: 12px; }
 .table thead th { background: #3498db; color: white; }
 h1.frame-title {
@@ -72,9 +70,7 @@ h1.frame-title {
                                 <th>Price (PHP)</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- Rows inserted by JS -->
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
                 <div class="text-end mt-2"><span id="visibleCount">0 items</span></div>
@@ -103,6 +99,10 @@ h1.frame-title {
                 </form>
             </div>
 
+            <div class="mb-2">
+                <button id="downloadCsv" class="btn btn-outline-primary">Download CSV</button>
+            </div>
+
             <div class="card p-3">
                 <h5>Logged Items</h5>
                 <div class="table-responsive">
@@ -115,9 +115,7 @@ h1.frame-title {
                                 <th>Date</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- Logged items -->
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -129,6 +127,7 @@ h1.frame-title {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+// Price List data
 const items = [
   ["Nescafe Original Twin","DRINK",20],
   ["Nescafe Creamy Latte Twin","DRINK",20],
@@ -168,6 +167,7 @@ const items = [
   ["Milo","DRINK",15],
 ];
 
+// Price List
 const tbody = document.querySelector("#itemsTable tbody");
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
@@ -176,28 +176,26 @@ const searchBtn = document.getElementById("searchBtn");
 const resetBtn = document.getElementById("resetBtn");
 const visibleCount = document.getElementById("visibleCount");
 
-// Populate Price List Table
 function renderRows(list){
-    tbody.innerHTML = "";
+    tbody.innerHTML="";
     if(list.length===0){
-        tbody.innerHTML = '<tr><td colspan="3" class="text-center">No items found</td></tr>';
+        tbody.innerHTML='<tr><td colspan="3" class="text-center">No items found</td></tr>';
     } else {
         list.forEach(row=>{
-            const tr = document.createElement("tr");
-            tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td>`;
+            const tr=document.createElement("tr");
+            tr.innerHTML=`<td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td>`;
             tbody.appendChild(tr);
         });
     }
-    visibleCount.textContent = list.length + (list.length===1 ? " item" : " items");
+    visibleCount.textContent=list.length + (list.length===1 ? " item":" items");
 }
 renderRows(items);
 
-// Search functionality
 function filterItems(){
-    const q = searchInput.value.toLowerCase();
-    const category = categorySelect.value;
-    const priceVal = priceInput.value;
-    const priceFilter = priceVal === "" ? null : Number(priceVal);
+    const q=searchInput.value.toLowerCase();
+    const category=categorySelect.value;
+    const priceVal=priceInput.value;
+    const priceFilter=priceVal===""?null:Number(priceVal);
 
     const filtered = items.filter(([desc, cat, price])=>{
         return (q===""||desc.toLowerCase().includes(q)) &&
@@ -207,25 +205,22 @@ function filterItems(){
     renderRows(filtered);
 }
 
-searchBtn.addEventListener("click", filterItems);
+searchBtn.addEventListener("click",filterItems);
 resetBtn.addEventListener("click", ()=>{
     searchInput.value=""; categorySelect.value=""; priceInput.value="";
     renderRows(items);
 });
-
-// Press enter to search
 [searchInput, categorySelect, priceInput].forEach(el=>{
     el.addEventListener("keydown", e=>{
         if(e.key==="Enter"){ e.preventDefault(); filterItems(); }
     });
 });
 
-// BNPL Log Tab
+// BNPL Log
 const itemSelect = document.getElementById("itemSelect");
 const bnplForm = document.getElementById("bnplForm");
 const bnplTable = document.querySelector("#bnplTable tbody");
 
-// Populate dropdown with items
 items.forEach(([desc, cat, price])=>{
     const option = document.createElement("option");
     option.value = price;
@@ -235,7 +230,6 @@ items.forEach(([desc, cat, price])=>{
     itemSelect.appendChild(option);
 });
 
-// Handle form submission
 bnplForm.addEventListener("submit", e=>{
     e.preventDefault();
     const name = document.getElementById("userName").value;
@@ -247,10 +241,28 @@ bnplForm.addEventListener("submit", e=>{
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>${name}</td><td>${itemName}</td><td>${itemPrice}</td><td>${date}</td>`;
     bnplTable.appendChild(tr);
-
-    // Reset form
     bnplForm.reset();
 });
+
+// Download CSV
+document.getElementById("downloadCsv").addEventListener("click", ()=>{
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Name,Item,Price (PHP),Date\r\n";
+    const rows = bnplTable.querySelectorAll("tr");
+    rows.forEach(tr=>{
+        const cols = tr.querySelectorAll("td");
+        const rowData = Array.from(cols).map(td=>td.textContent.replace(/,/g,""));
+        csvContent += rowData.join(",") + "\r\n";
+    });
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "BNPL_Log.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
 </script>
+
 </body>
 </html>
